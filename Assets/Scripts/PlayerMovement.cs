@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    CharacterController characterController;
     Rigidbody rb;
 
     InputAction moveAction;
@@ -18,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() 
     {
-        characterController = gameObject.GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         cam = GetComponentInChildren<Camera>();
 
@@ -30,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 moveVal = moveAction.ReadValue<Vector2>();
 
-        Vector3 moveDir = new Vector3(moveVal.x, 0, moveVal.y);
+        Vector3 moveDir = transform.forward * moveVal.x + transform.right * moveVal.y;
 
         if(Mathf.Abs(rb.linearVelocity.magnitude) < 10)
         {
